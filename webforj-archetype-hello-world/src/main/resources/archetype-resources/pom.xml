@@ -42,7 +42,7 @@
     <dependency>
       <groupId>com.webforj</groupId>
       <artifactId>webforj</artifactId>
-      <version>${webforj.version}</version>
+      <version>\${webforj.version}</version>
     </dependency>
 
     <dependency>

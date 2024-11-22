@@ -30,7 +30,7 @@
     <dependency>
       <groupId>com.webforj</groupId>
       <artifactId>webforj</artifactId>
-      <version>${webforj.version}</version>
+      <version>\${webforj.version}</version>
       <exclusions>
         <exclusion>
           <groupId>com.webforj</groupId>
@@ -45,7 +45,7 @@
       <plugin>
         <groupId>com.webforj</groupId>
         <artifactId>webforj-install-maven-plugin</artifactId>
-        <version>${webforj.version}</version>
+        <version>\${webforj.version}</version>
         <executions>
           <execution>
             <goals>
