@@ -154,5 +154,14 @@ jobs:
               }
             ]
 
+      - name: Set version with SNAPSHOT if not creating a release
+        id: set_version
+        run: |
+          if [ "${{ env.CREATE_RELEASE }}" != "true" ]; then
+            echo "VERSION=${{ env.VERSION }}-SNAPSHOT" >> $GITHUB_ENV
+          else
+            echo "VERSION=${{ env.VERSION }}" >> $GITHUB_ENV
+          fi
+
       - name: Publish to Nexus
         run: mvn clean deploy -DskipTests -Dwebforj.version=${{ env.VERSION }} -P perform-release
