@@ -6,13 +6,13 @@ This repository hosts several application starters to scaffold webforJ applicati
 
 ## Using the Available Archetypes
 
-Navigate to the folder where you want to create your new project and run the following command. Replace `${webforj-archetype-X}` with the name of the archetype you wish to use.
+Navigate to the folder where you want to create your new project, then run the following command. Replace `${webforj-archetype-X}` with the desired archetype name and `${webforj.version}` with the version you want to use.
 
 ```shell
 mvn -B archetype:generate \
 -DarchetypeGroupId=com.webforj \
 -DarchetypeArtifactId=${webforj-archetype-X} \
--DarchetypeVersion=LATEST \
+-DarchetypeVersion=${webforj.version} \
 -DgroupId=org.example \
 -DartifactId=my-webapp \
 -Dversion=1.0-SNAPSHOT
