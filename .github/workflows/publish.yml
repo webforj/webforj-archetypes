@@ -92,6 +92,15 @@ jobs:
           author_name: ${{ secrets.ACTOR_NAME }}
           message: "build: bump version to ${{ env.VERSION }}"
 
+      - name: Create Release
+        if: ${{ env.CREATE_RELEASE == 'true' }}ß
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          tag: ${{ env.VERSION }}
+          name: Release v${{ env.VERSION }}
+          makeLatest: true
+
       - name: Install gpg
         run: sudo apt-get install -y gnupg
 
