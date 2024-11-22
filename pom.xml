@@ -11,7 +11,7 @@
 
   <groupId>com.webforj</groupId>
   <artifactId>webforj-archetypes</artifactId>
-  <version>24.20-SNAPSHOT</version>
+  <version>24.20.alpha</version>
   <packaging>pom</packaging>
 
   <name>webforj-archetypes</name>
