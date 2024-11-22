@@ -94,7 +94,7 @@
             <phase>process-resources</phase>
             <configuration>
               <target>
-                <copy file="src/main/resources/${config.file}" tofile="${project.build.outputDirectory}/webforj.conf" />
+                <copy file="src/main/resources/${config.file}" tofile="\${project.build.outputDirectory}/webforj.conf" />
               </target>
             </configuration>
             <goals>
