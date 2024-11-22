@@ -1,0 +1,115 @@
+name: Publish
+
+on:
+  repository_dispatch:
+    types: [version]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version number"
+        required: true
+      createRelease:
+        description: "Create a new release"
+        type: boolean
+        required: false
+        default: false
+
+env:
+  VERSION: ${{ github.event.client_payload.version || github.event.inputs.version }}
+  CREATE_RELEASE: ${{ github.event.client_payload.createRelease || github.event.inputs.createRelease }}
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set version with SNAPSHOT if not creating a release
+        id: set_version
+        run: |
+          if [ "${{ env.CREATE_RELEASE }}" != "true" ]; then
+            echo "VERSION=${{ env.VERSION }}-SNAPSHOT" >> $GITHUB_ENV
+          else
+            echo "VERSION=${{ env.VERSION }}" >> $GITHUB_ENV
+          fi
+
+      - name: Install Maven
+        run: sudo apt install maven
+
+      - name: Bump version in POM files
+        run: mvn versions:set -DnewVersion=${{ env.VERSION }} -q
+
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.ACTOR_TOKEN }}
+          author_email: ${{ secrets.ACTOR_EMAIL }}
+          author_name: ${{ secrets.ACTOR_NAME }}
+          message: "build: bump version to ${{ env.VERSION }}"
+
+  publish:
+    needs: version
+    name: Publish to Nexus
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2-
+
+      - name: Install gpg
+        run: sudo apt-get install -y gnupg
+
+      - name: Import GPG Key
+        uses: crazy-max/ghaction-import-gpg@v1
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          PASSPHRASE: ""
+
+      - name: Write maven settings
+        uses: whelk-io/maven-settings-xml-action@v20
+        with:
+          repositories: |
+            [
+              {
+                "id": "ossrh",
+                "url": "https://s01.oss.sonatype.org/content/repositories/snapshots",
+                "releases": {
+                  "enabled": "false"
+                },
+                "snapshots": {
+                  "enabled": "true"
+                }
+              }
+            ]
+          servers: >
+            [
+              {
+                "id": "ossrh",
+                "username": "${{secrets.OSSRH_USERNAME}}",
+                "password": "${{secrets.OSSRH_TOKEN}}"
+              }
+            ]
+          profiles: >
+            [
+              {
+                "id": "ossrh",
+                "activation": {
+                  "activeByDefault": true
+                }
+              }
+            ]
+
+      - name: Publish to Nexus
+        run: mvn clean deploy -DskipTests -Dwebforj.version=${{ env.VERSION }} -P perform-release
