@@ -12,6 +12,7 @@ Navigate to the folder where you want to create your new project and run the fol
 mvn -B archetype:generate \
 -DarchetypeGroupId=com.webforj \
 -DarchetypeArtifactId=${webforj-archetype-X} \
+-DarchetypeVersion=LATEST \
 -DgroupId=org.example \
 -DartifactId=my-webapp \
 -Dversion=1.0-SNAPSHOT
