@@ -80,19 +80,6 @@ jobs:
       - name: Write maven settings
         uses: whelk-io/maven-settings-xml-action@v20
         with:
-          repositories: |
-            [
-              {
-                "id": "ossrh",
-                "url": "https://s01.oss.sonatype.org/content/repositories/snapshots",
-                "releases": {
-                  "enabled": "false"
-                },
-                "snapshots": {
-                  "enabled": "true"
-                }
-              }
-            ]
           servers: >
             [
               {
@@ -107,6 +94,18 @@ jobs:
                 "id": "ossrh",
                 "activation": {
                   "activeByDefault": true
+                },
+                "repositories": {
+                  "repository": {
+                    "id": "ossrh",
+                    "url": "https://s01.oss.sonatype.org/content/repositories/snapshots",
+                    "releases": {
+                      "enabled": "false"
+                    },
+                    "snapshots": {
+                      "enabled": "true"
+                    }
+                  }
                 }
               }
             ]
