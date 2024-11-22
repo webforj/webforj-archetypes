@@ -1,0 +1,40 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.webforj</groupId>
+    <artifactId>webforj-parent</artifactId>
+    <version>24.20-SNAPSHOT</version>
+  </parent>
+
+  <groupId>com.webforj</groupId>
+  <artifactId>webforj-archetypes</artifactId>
+  <version>24.20-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>webforj-archetypes</name>
+  <description>webforJ application archetypes</description>
+
+  <properties>
+    <webforj.version>${version}</webforj.version>
+  </properties>
+
+  <scm>
+    <connection>scm:git:git://github.com/webforj/archetypes.git</connection>
+    <developerConnection>scm:git:ssh://github.com:webforj/archetypes.git</developerConnection>
+    <url>https://github.com/webforj/archetypes/tree/main</url>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/webforj/archetypes/issues</url>
+  </issueManagement>
+
+  <modules>
+    <module>webforj-archetype-bbj-hello-world</module>
+    <module>webforj-archetype-hello-world</module>
+  </modules>
+
+</project>
