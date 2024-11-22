@@ -1,5 +1,7 @@
 # webforJ Archetypes
 
+[![Publish](https://github.com/webforj/webforj-archetypes/actions/workflows/publish.yml/badge.svg)](https://github.com/webforj/webforj-archetypes/actions/workflows/publish.yml)
+
 This repository hosts several application starters to scaffold webforJ applications.
 
 ## Using the Available Archetypes
