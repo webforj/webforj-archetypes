@@ -12,7 +12,7 @@
 
   <artifactId>webforj-archetype-hello-world</artifactId>
   <name>webforj-archetype-hello-world</name>
-  <description>webforJ archetype for a Hello World application.</description>
+  <description>webforJ archetype for a Hello World application</description>
   <packaging>maven-archetype</packaging>
 
   <build>

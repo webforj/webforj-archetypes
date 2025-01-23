@@ -35,6 +35,9 @@
   <modules>
     <module>webforj-archetype-bbj-hello-world</module>
     <module>webforj-archetype-hello-world</module>
+    <module>webforj-archetype-blank</module>
+    <module>webforj-archetype-tabs</module>
+    <module>webforj-archetype-sidemenu</module>
   </modules>
 
 </project>
