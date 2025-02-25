@@ -7,7 +7,7 @@
   <parent>
     <groupId>com.webforj</groupId>
     <artifactId>webforj-archetypes</artifactId>
-    <version>24.22-SNAPSHOT</version>
+    <version>24.22</version>
   </parent>
 
   <artifactId>webforj-archetype-bbj-hello-world</artifactId>
