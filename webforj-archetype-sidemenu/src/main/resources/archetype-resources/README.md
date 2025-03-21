@@ -4,7 +4,7 @@ A minimal and ready-to-use starting point for building webforJ applications. Thi
 
 ## Prerequisites
 
-- Java 11 or newer  
+- Java 17 or newer  
 - Maven 3.9+
 
 ## Getting Started
