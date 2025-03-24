@@ -10,16 +10,30 @@
     </requiredProperty>
   </requiredProperties>
   <fileSets>
+    <fileSet encoding="UTF-8">
+      <directory></directory>
+      <includes>
+        <include>.editorconfig</include>
+        <include>.gitignore</include>
+        <include>README.md</include>
+      </includes>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+      <directory>.vscode</directory>
+      <includes>
+        <include>**/*.json</include>
+      </includes>
+    </fileSet>
     <fileSet filtered="true" packaged="true" encoding="UTF-8">
       <directory>src/main/java</directory>
       <includes>
         <include>**/*.java</include>
       </includes>
     </fileSet>
-    <fileSet filtered="true" encoding="UTF-8">
-      <directory>src/main/webapp</directory>
+    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+      <directory>src/test/java</directory>
       <includes>
-        <include>**/*.xml</include>
+        <include>**/*.java</include>
       </includes>
     </fileSet>
     <fileSet encoding="UTF-8">
@@ -37,22 +51,10 @@
         <include>**/*.conf</include>
       </includes>
     </fileSet>
-    <fileSet filtered="true" packaged="true" encoding="UTF-8">
-      <directory>src/test/java</directory>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>src/main/webapp</directory>
       <includes>
-        <include>**/*.java</include>
-      </includes>
-    </fileSet>
-    <fileSet encoding="UTF-8">
-      <directory>.vscode</directory>
-      <includes>
-        <include>**/*.json</include>
-      </includes>
-    </fileSet>
-    <fileSet encoding="UTF-8">
-      <includes>
-        <include>.editorconfig</include>
-        <include>README.md</include>
+        <include>**/*.xml</include>
       </includes>
     </fileSet>
   </fileSets>
