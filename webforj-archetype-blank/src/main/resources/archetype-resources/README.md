@@ -4,7 +4,7 @@ A minimal and ready-to-use starting point for building webforJ applications. Thi
 
 ## Prerequisites
 
-- Java 17 or newer  
+- Java 21 or newer  
 - Maven 3.9+
 
 ## Getting Started
@@ -53,6 +53,6 @@ This command:
 Explore the webforJ ecosystem through our documentation and examples:
 
 - [Full Documentation](https://docs.webforj.com)
-- [Component Overview](https://documentation.webforj.com/docs/components/overview)
+- [Component Overview](https://docs.webforj.com/docs/components/overview)
 - [Quick Tutorial](https://docs.webforj.com/docs/introduction/tutorial/overview)
 - [Advanced Topics](https://docs.webforj.com/docs/advanced/overview)
