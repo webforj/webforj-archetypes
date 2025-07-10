@@ -3,12 +3,24 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+#if( ${flavor} == "webforj-spring" )
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.5.3</version>
+  </parent>
+#end
 
   <groupId>\${groupId}</groupId>
   <artifactId>\${artifactId}</artifactId>
   <name>\${appName}</name>
   <version>\${version}</version>
+#if( ${flavor} == "webforj" )
   <packaging>war</packaging>
+#else
+  <packaging>jar</packaging>
+#end
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,6 +29,7 @@
     <maven.compiler.target>21</maven.compiler.target>
 
     <webforj.version>${webforj.version}</webforj.version>
+#if( ${flavor} == "webforj" )
 
     <jetty.version>12.0.14</jetty.version>
     <!--
@@ -27,6 +40,8 @@
     <jetty.scan>1</jetty.scan>
     <jetty.port>8080</jetty.port>
     <jetty.stopPort>9966</jetty.stopPort>
+    <jetty.stopWait>30</jetty.stopWait>
+#end
   </properties>
 
   <repositories>
@@ -52,6 +67,7 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+#if( ${flavor} == "webforj" )
 
       <dependency>
         <groupId>org.junit</groupId>
@@ -60,6 +76,7 @@
         <scope>import</scope>
         <type>pom</type>
       </dependency>
+#end
     </dependencies>
   </dependencyManagement>
 
@@ -70,11 +87,57 @@
       <version>\${webforj.version}</version>
     </dependency>
 
+#if( ${flavor} == "webforj-spring" )
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>2.0.16</version>
+      <groupId>com.webforj</groupId>
+      <artifactId>webforj-spring-boot-starter</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
+    <!-- <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency> -->
+
+    <dependency>
+      <groupId>com.webforj</groupId>
+      <artifactId>webforj-spring-devtools</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>com.vaadin.external.google</groupId>
+          <artifactId>android-json</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+#else
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+#end
 
     <dependency>
       <groupId>com.microsoft.playwright</groupId>
@@ -82,15 +145,25 @@
       <version>1.49.0</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 
   <build>
+#if( ${flavor} == "webforj-spring" )
+    <defaultGoal>spring-boot:run</defaultGoal>
+#else
+    <defaultGoal>jetty:run</defaultGoal>
+#end
     <plugins>
+#if( ${flavor} == "webforj-spring" )
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <excludeDevtools>true</excludeDevtools>
+        </configuration>
+      </plugin>
+#else
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
@@ -116,6 +189,7 @@
           <scan>${jetty.scan}</scan>
           <stopPort>${jetty.stopPort}</stopPort>
           <stopKey>\${project.artifactId}</stopKey>
+          <stopWait>\${jetty.stopWait}</stopWait>
           <httpConnector>
             <port>${jetty.port}</port>
           </httpConnector>
@@ -140,6 +214,7 @@
           </execution>
         </executions>
       </plugin>
+#end
 
       <!-- Runs the integration tests (*IT) after the server is started -->
       <plugin>
@@ -190,6 +265,25 @@
       <properties>
         <config.file>webforj-prod.conf</config.file>
       </properties>
+#if( ${flavor} == "webforj-spring" )
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <configuration>
+              <excludeDevtools>true</excludeDevtools>
+              <excludes>
+                <exclude>
+                  <groupId>com.webforj</groupId>
+                  <artifactId>webforj-spring-devtools</artifactId>
+                </exclude>
+              </excludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+#end
     </profile>
     <profile>
       <id>dev</id>

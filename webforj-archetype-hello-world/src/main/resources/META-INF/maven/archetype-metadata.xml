@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archetype-descriptor
-  xsi:schemaLocation="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0 https://maven.apache.org/xsd/archetype-descriptor-1.1.0.xsd"
-  name="webforj-archetype-blank"
-  xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
+  xsi:schemaLocation="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.2.0 https://maven.apache.org/xsd/archetype-descriptor-1.2.0.xsd"
+  name="webforj-archetype-hello-world"
+  xmlns="https://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.2.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <requiredProperties>
     <requiredProperty key="appName">
       <defaultValue>My App</defaultValue>
+    </requiredProperty>
+    <requiredProperty key="flavor">
+      <defaultValue>webforj</defaultValue>
     </requiredProperty>
   </requiredProperties>
   <fileSets>
@@ -15,6 +18,11 @@
       <includes>
         <include>.editorconfig</include>
         <include>.gitignore</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory></directory>
+      <includes>
         <include>README.md</include>
       </includes>
     </fileSet>
@@ -49,9 +57,19 @@
       <includes>
         <include>**/*.css</include>
         <include>**/*.conf</include>
+        <include>banner.txt</include>
+      </includes>
+      <excludes>
+        <exclude>application.properties</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8" includeCondition="${flavor.equals('webforj-spring')}">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>application.properties</include>
       </includes>
     </fileSet>
-    <fileSet filtered="true" encoding="UTF-8">
+    <fileSet filtered="true" encoding="UTF-8" includeCondition="${flavor.equals('webforj')}">
       <directory>src/main/webapp</directory>
       <includes>
         <include>**/*.xml</include>

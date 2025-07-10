@@ -25,6 +25,7 @@ replay_pid*
 
 **/target
 /.idea
+/.claude
 *.iml
 /.project
 /.classpath
