@@ -233,6 +233,7 @@
           <trimStackTrace>false</trimStackTrace>
         </configuration>
       </plugin>
+#if( ${flavor} != "webforj-spring" )
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -254,6 +255,7 @@
           </execution>
         </executions>
       </plugin>
+#end
     </plugins>
   </build>
 
@@ -262,9 +264,11 @@
       <id>prod</id>
       <activation>
       </activation>
+#if( ${flavor} != "webforj-spring" )
       <properties>
         <config.file>webforj-prod.conf</config.file>
       </properties>
+#end
 #if( ${flavor} == "webforj-spring" )
       <build>
         <plugins>
@@ -290,9 +294,11 @@
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
+#if( ${flavor} != "webforj-spring" )
       <properties>
         <config.file>webforj-dev.conf</config.file>
       </properties>
+#end
     </profile>
   </profiles>
 </project>
