@@ -29,9 +29,12 @@
     <maven.compiler.target>21</maven.compiler.target>
 
     <webforj.version>${webforj.version}</webforj.version>
+#if( ${flavor} == "webforj-spring" )
+    <tomcat.version>11.0.2</tomcat.version>
+#end
 #if( ${flavor} == "webforj" )
 
-    <jetty.version>12.0.14</jetty.version>
+    <jetty.version>12.1.0</jetty.version>
     <!--
       Configures automatic reload of Jetty server
       (with 1 second timeout) when new classes are compiled.
@@ -182,8 +185,8 @@
       </plugin>
 
       <plugin>
-        <groupId>org.eclipse.jetty.ee10</groupId>
-        <artifactId>jetty-ee10-maven-plugin</artifactId>
+        <groupId>org.eclipse.jetty.ee11</groupId>
+        <artifactId>jetty-ee11-maven-plugin</artifactId>
         <version>${jetty.version}</version>
         <configuration>
           <scan>${jetty.scan}</scan>
