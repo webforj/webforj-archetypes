@@ -86,5 +86,11 @@
         <include>**/*.xml</include>
       </includes>
     </fileSet>
+    <fileSet filtered="true" encoding="UTF-8" includeCondition="${flavor.equals('webforj-spring')}">
+      <directory>src/test/resources</directory>
+      <includes>
+        <include>application.properties</include>
+      </includes>
+    </fileSet>
   </fileSets>
 </archetype-descriptor>
