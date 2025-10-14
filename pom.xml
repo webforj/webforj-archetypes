@@ -7,7 +7,7 @@
     <groupId>com.webforj</groupId>
     <artifactId>webforj-parent</artifactId>
     <!-- FIXME: revert to a stable version when central migration is complete -->
-    <version>25.02-SNAPSHOT</version>
+    <version>25.03</version>
   </parent>
 
   <groupId>com.webforj</groupId>
