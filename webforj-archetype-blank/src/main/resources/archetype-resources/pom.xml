@@ -34,7 +34,7 @@
 #end
 #if( ${flavor} == "webforj" )
 
-    <jetty.version>12.1.0</jetty.version>
+    <jetty.version>12.1.2</jetty.version>
     <!--
       Configures automatic reload of Jetty server
       (with 1 second timeout) when new classes are compiled.
