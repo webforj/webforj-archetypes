@@ -12,7 +12,7 @@
 
   <groupId>com.webforj</groupId>
   <artifactId>webforj-archetypes</artifactId>
-  <version>25.10-SNAPSHOT</version>
+  <version>25.10</version>
   <packaging>pom</packaging>
 
   <name>webforj-archetypes</name>
