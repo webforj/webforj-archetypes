@@ -60,6 +60,19 @@
       </snapshots>
     </repository>
   </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>central-portal-snapshots</id>
+      <name>Central Portal Snapshots</name>
+      <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+    </pluginRepository>
+  </pluginRepositories>
 
   <dependencyManagement>
     <dependencies>
@@ -259,6 +272,7 @@
         </executions>
       </plugin>
 #end
+
     </plugins>
   </build>
 
@@ -272,9 +286,9 @@
         <config.file>webforj-prod.conf</config.file>
       </properties>
 #end
-#if( ${flavor} == "webforj-spring" )
       <build>
         <plugins>
+#if( ${flavor} == "webforj-spring" )
           <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
@@ -288,9 +302,48 @@
               </excludes>
             </configuration>
           </plugin>
+#end
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <annotationProcessorPaths>
+                <path>
+                  <groupId>com.webforj</groupId>
+                  <artifactId>webforj-minify-foundation</artifactId>
+                  <version>\${webforj.version}</version>
+                </path>
+              </annotationProcessorPaths>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>com.webforj</groupId>
+            <artifactId>webforj-minify-maven-plugin</artifactId>
+            <version>\${webforj.version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>minify</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+            </configuration>
+            <dependencies>
+              <dependency>
+                <groupId>com.webforj</groupId>
+                <artifactId>webforj-minify-phcss-css</artifactId>
+                <version>\${webforj.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>com.webforj</groupId>
+                <artifactId>webforj-minify-closure-js</artifactId>
+                <version>\${webforj.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
         </plugins>
       </build>
-#end
     </profile>
     <profile>
       <id>dev</id>
