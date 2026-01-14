@@ -4,4 +4,4 @@
   \ V  V /  __/ | |_) |  _| (_) | |  _| |
    \_/\_/ \___| |_.__/|_|  \___/|_| |___|
 
-   :: webforJ (${webforj.version}) ::
+   :: webforJ (\${webforj.version}) ::
