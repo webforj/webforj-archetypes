@@ -19,14 +19,11 @@ import com.webforj.dispatcher.ListenerRegistration;
 import com.webforj.router.Router;
 import com.webforj.router.annotation.FrameTitle;
 import com.webforj.router.annotation.Route;
-import com.webforj.router.event.DidEnterEvent;
 import com.webforj.router.event.NavigateEvent;
 import com.webforj.router.history.Location;
-import com.webforj.router.history.ParametersBag;
-import com.webforj.router.observer.DidEnterObserver;
 
 @Route
-public class MainLayout extends Composite<AppLayout> implements DidEnterObserver {
+public class MainLayout extends Composite<AppLayout> {
   private static final String DEFAULT_VIEW = "dashboard";
   private AppLayout self = getBoundComponent();
   private TabbedPane nav = new TabbedPane();
@@ -38,11 +35,6 @@ public class MainLayout extends Composite<AppLayout> implements DidEnterObserver
     setHeader();
     setNav();
     navigateRegistration = Router.getCurrent().onNavigate(this::onNavigate);
-  }
-
-  @Override
-  public void onDidEnter(DidEnterEvent event, ParametersBag parameters) {
-    setSelectListener();
   }
 
   private void setHeader() {
@@ -72,7 +64,6 @@ public class MainLayout extends Composite<AppLayout> implements DidEnterObserver
   @Override
   protected void onDidDestroy() {
     removeListener(navigateRegistration);
-    removeListener(tabSelectRegistration);
   }
 
   private void onNavigate(NavigateEvent ev) {
