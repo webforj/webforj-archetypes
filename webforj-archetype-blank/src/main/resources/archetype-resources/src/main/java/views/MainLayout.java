@@ -11,6 +11,7 @@ import com.webforj.component.html.elements.H1;
 import com.webforj.component.layout.applayout.AppLayout;
 import com.webforj.component.layout.applayout.AppLayout.DrawerPlacement;
 import com.webforj.component.layout.toolbar.Toolbar;
+import com.webforj.dispatcher.ListenerRegistration;
 import com.webforj.router.Router;
 import com.webforj.router.annotation.FrameTitle;
 import com.webforj.router.annotation.Route;
@@ -20,10 +21,11 @@ import com.webforj.router.event.NavigateEvent;
 public class MainLayout extends Composite<AppLayout> {
   private AppLayout self = getBoundComponent();
   private H1 title = new H1();
+  private ListenerRegistration<NavigateEvent> navigateRegistration;
 
   public MainLayout() {
     setHeader();
-    Router.getCurrent().onNavigate(this::onNavigate);
+    navigateRegistration = Router.getCurrent().onNavigate(this::onNavigate);
   }
 
   private void setHeader() {
@@ -33,6 +35,13 @@ public class MainLayout extends Composite<AppLayout> {
     toolbar.addToTitle(title);
 
     self.addToHeader(toolbar);
+  }
+
+  @Override
+  protected void onDidDestroy() {
+    if (navigateRegistration != null) {
+      navigateRegistration.remove();
+    }
   }
 
   private void onNavigate(NavigateEvent ev) {

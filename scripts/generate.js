@@ -4,7 +4,7 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 
 // Configuration
-const ARCHETYPE_VERSION = '25.11-SNAPSHOT';
+const ARCHETYPE_VERSION = '25.12-SNAPSHOT';
 const GROUP_ID = 'org.example';
 const VERSION = '1.0-SNAPSHOT';
 

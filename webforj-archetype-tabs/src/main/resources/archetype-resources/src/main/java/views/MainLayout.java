@@ -31,12 +31,13 @@ public class MainLayout extends Composite<AppLayout> implements DidEnterObserver
   private AppLayout self = getBoundComponent();
   private TabbedPane nav = new TabbedPane();
   private H1 title = new H1();
-  private ListenerRegistration<TabSelectEvent> registration;
+  private ListenerRegistration<TabSelectEvent> tabSelectRegistration;
+  private ListenerRegistration<NavigateEvent> navigateRegistration;
 
   public MainLayout() {
     setHeader();
     setNav();
-    Router.getCurrent().onNavigate(this::onNavigate);
+    navigateRegistration = Router.getCurrent().onNavigate(this::onNavigate);
   }
 
   @Override
@@ -68,6 +69,12 @@ public class MainLayout extends Composite<AppLayout> implements DidEnterObserver
     self.addToFooter(nav);
   }
 
+  @Override
+  protected void onDidDestroy() {
+    removeListener(navigateRegistration);
+    removeListener(tabSelectRegistration);
+  }
+
   private void onNavigate(NavigateEvent ev) {
     setAppTitle(ev);
     setSelectedTab(ev);
@@ -93,7 +100,7 @@ public class MainLayout extends Composite<AppLayout> implements DidEnterObserver
     for (Tab tab : nav.getTabs()) {
       if (tab.getText().toLowerCase().equals(path)) {
         // temporarily remove the listener to avoid history push
-        removeSelectListener();
+        removeListener(tabSelectRegistration);
         nav.select(tab);
         setSelectListener();
         break;
@@ -102,15 +109,15 @@ public class MainLayout extends Composite<AppLayout> implements DidEnterObserver
   }
 
   private void setSelectListener() {
-    registration = nav.onSelect(ev -> {
+    tabSelectRegistration = nav.onSelect(ev -> {
       String tab = ev.getTab().getText().toLowerCase();
       Router.getCurrent().navigate(new Location(tab));
     });
   }
 
-  private void removeSelectListener() {
-    if (registration != null) {
-      registration.remove();
+  private void removeListener(ListenerRegistration<?> reg) {
+    if (reg != null) {
+      reg.remove();
     }
   }
 }
