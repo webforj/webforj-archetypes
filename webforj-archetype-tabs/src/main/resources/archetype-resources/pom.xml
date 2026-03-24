@@ -8,7 +8,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.5.9</version>
+    <version>4.0.4</version>
   </parent>
 #end
 
@@ -29,9 +29,6 @@
     <maven.compiler.target>21</maven.compiler.target>
 
     <webforj.version>${webforj.version}</webforj.version>
-#if( ${flavor} == "webforj-spring" )
-    <tomcat.version>11.0.2</tomcat.version>
-#end
 #if( ${flavor} == "webforj" )
 
     <jetty.version>12.1.2</jetty.version>
@@ -236,7 +233,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.0.0-M7</version>
         <executions>
           <execution>
             <goals>
