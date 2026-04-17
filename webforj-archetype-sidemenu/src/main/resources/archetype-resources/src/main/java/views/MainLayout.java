@@ -6,17 +6,21 @@ package ${package}.views;
 import java.util.Set;
 
 import ${package}.components.DrawerHeader;
+import ${package}.components.UserBadge;
 
+import com.webforj.App;
 import com.webforj.component.Component;
 import com.webforj.component.Composite;
+import com.webforj.component.Theme;
 import com.webforj.component.html.elements.H1;
-import com.webforj.component.icons.FeatherIcon;
+import com.webforj.component.icons.IconButton;
 import com.webforj.component.icons.TablerIcon;
 import com.webforj.component.layout.applayout.AppDrawerToggle;
 import com.webforj.component.layout.applayout.AppLayout;
 import com.webforj.component.layout.appnav.AppNav;
 import com.webforj.component.layout.appnav.AppNavItem;
 import com.webforj.component.layout.toolbar.Toolbar;
+import com.webforj.component.toast.Toast;
 import com.webforj.dispatcher.ListenerRegistration;
 import com.webforj.router.Router;
 import com.webforj.router.annotation.FrameTitle;
@@ -32,32 +36,62 @@ public class MainLayout extends Composite<AppLayout> {
   public MainLayout() {
     setHeader();
     setDrawer();
+    setDrawerFooter();
     navigateRegistration = Router.getCurrent().onNavigate(this::onNavigate);
   }
 
   private void setHeader() {
     self.setDrawerHeaderVisible(true);
-
     self.addToDrawerTitle(new DrawerHeader());
 
     Toolbar toolbar = new Toolbar();
     toolbar.addToStart(new AppDrawerToggle());
     toolbar.addToTitle(title);
+    toolbar.addToEnd(
+        buildStubIconButton("search", "Search"),
+        buildStubIconButton("bell", "Notifications"),
+        buildThemeToggle(),
+        new UserBadge("John Doe", "Admin"));
 
     self.addToHeader(toolbar);
   }
 
-  private void setDrawer() {
+  private IconButton buildStubIconButton(String iconName, String label) {
+    IconButton button = new IconButton(TablerIcon.create(iconName));
+    button.onClick(ev -> Toast.show("\"%s\" is not wired up yet".formatted(label), 3000, Theme.INFO,
+        Toast.Placement.BOTTOM_RIGHT));
+    return button;
+  }
 
+  private IconButton buildThemeToggle() {
+    IconButton button = new IconButton(TablerIcon.create(iconForTheme(App.getTheme())));
+    button.onClick(ev -> {
+      String next = "dark".equals(App.getTheme()) ? "light" : "dark";
+      App.setTheme(next);
+      button.setName(iconForTheme(next));
+    });
+    return button;
+  }
+
+  private String iconForTheme(String theme) {
+    return "dark".equals(theme) ? "sun" : "moon";
+  }
+
+  private void setDrawer() {
     AppNav appNav = new AppNav();
-    appNav.addItem(new AppNavItem("Inbox", InboxView.class, TablerIcon.create("inbox")));
-    appNav.addItem(new AppNavItem("Outbox", OutboxView.class, TablerIcon.create("send-2")));
-    appNav.addItem(new AppNavItem("Favorites", FavoritesView.class, TablerIcon.create("heart")));
-    appNav.addItem(new AppNavItem("Archived", ArchivedView.class, TablerIcon.create("archive")));
-    appNav.addItem(new AppNavItem("Trash", TrashView.class, TablerIcon.create("trash")));
-    appNav.addItem(new AppNavItem("Spam", SpamView.class, TablerIcon.create("alert-hexagon")));
+    appNav.addItem(new AppNavItem("Dashboard", DashboardView.class, TablerIcon.create("layout-dashboard")));
+    appNav.addItem(new AppNavItem("Contacts", ContactsView.class, TablerIcon.create("users")));
+    appNav.addItem(new AppNavItem("Deals", DealsView.class, TablerIcon.create("briefcase")));
+    appNav.addItem(new AppNavItem("Tasks", TasksView.class, TablerIcon.create("checklist")));
+    appNav.addItem(new AppNavItem("Calendar", CalendarView.class, TablerIcon.create("calendar-event")));
+    appNav.addItem(new AppNavItem("Reports", ReportsView.class, TablerIcon.create("chart-bar")));
 
     self.addToDrawer(appNav);
+  }
+
+  private void setDrawerFooter() {
+    self.setDrawerFooterVisible(true);
+    self.addToDrawerFooter(buildStubIconButton("logout", "Logout"));
   }
 
   @Override

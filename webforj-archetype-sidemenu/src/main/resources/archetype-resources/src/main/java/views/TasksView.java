@@ -11,14 +11,14 @@ import com.webforj.component.layout.flexlayout.FlexLayout;
 import com.webforj.router.annotation.FrameTitle;
 import com.webforj.router.annotation.Route;
 
-@Route(value = "/favorites", outlet = MainLayout.class)
-@FrameTitle("Favorites")
-public class FavoritesView extends Composite<FlexLayout> {
+@Route(value = "/tasks", outlet = MainLayout.class)
+@FrameTitle("Tasks")
+public class TasksView extends Composite<FlexLayout> {
   private FlexLayout self = getBoundComponent();
 
-  public FavoritesView() {
+  public TasksView() {
     self.setHeight("100%");
     self.setAlignment(FlexAlignment.CENTER);
-    self.add(new Explore("Favorites"));
+    self.add(new Explore("You're all caught up", "checklist", "Create task"));
   }
 }

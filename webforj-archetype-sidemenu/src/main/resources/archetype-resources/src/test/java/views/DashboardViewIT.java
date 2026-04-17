@@ -5,25 +5,19 @@ package ${package}.views;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
 
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class InboxViewIT {
+class DashboardViewIT {
 
   static Playwright playwright = Playwright.create();
   Browser browser;
   Page page;
-
-  @LocalServerPort
-  private int port;
+  String port = System.getProperty("server.port", "8080");
 
   @BeforeEach
   void setUp() {
@@ -40,16 +34,9 @@ class InboxViewIT {
     page.navigate("http://localhost:" + port + "/");
   }
 
-  @AfterEach
-  void tearDown() {
-    if (browser != null) {
-      browser.close();
-    }
-  }
-
   @Test
-  void shouldClickButton() {
+  void shouldRenderPage() {
     assertThat(page.locator(".explore-component"))
-        .containsText("Inbox");
+        .containsText("Your dashboard is empty");
   }
 }

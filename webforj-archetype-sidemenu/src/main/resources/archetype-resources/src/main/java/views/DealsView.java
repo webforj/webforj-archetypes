@@ -11,14 +11,14 @@ import com.webforj.component.layout.flexlayout.FlexLayout;
 import com.webforj.router.annotation.FrameTitle;
 import com.webforj.router.annotation.Route;
 
-@Route(value = "/", outlet = MainLayout.class)
-@FrameTitle("Inbox")
-public class InboxView extends Composite<FlexLayout> {
+@Route(value = "/deals", outlet = MainLayout.class)
+@FrameTitle("Deals")
+public class DealsView extends Composite<FlexLayout> {
   private FlexLayout self = getBoundComponent();
 
-  public InboxView() {
+  public DealsView() {
     self.setHeight("100%");
     self.setAlignment(FlexAlignment.CENTER);
-    self.add(new Explore("Inbox"));
+    self.add(new Explore("No deals in your pipeline", "briefcase", "New deal"));
   }
 }

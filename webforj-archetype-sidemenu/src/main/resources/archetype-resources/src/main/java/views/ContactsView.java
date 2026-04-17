@@ -11,14 +11,14 @@ import com.webforj.component.layout.flexlayout.FlexLayout;
 import com.webforj.router.annotation.FrameTitle;
 import com.webforj.router.annotation.Route;
 
-@Route(value = "/outbox", outlet = MainLayout.class)
-@FrameTitle("Outbox")
-public class OutboxView extends Composite<FlexLayout> {
+@Route(value = "/contacts", outlet = MainLayout.class)
+@FrameTitle("Contacts")
+public class ContactsView extends Composite<FlexLayout> {
   private FlexLayout self = getBoundComponent();
 
-  public OutboxView() {
+  public ContactsView() {
     self.setHeight("100%");
     self.setAlignment(FlexAlignment.CENTER);
-    self.add(new Explore("Outbox"));
+    self.add(new Explore("No contacts yet", "users", "Add contact"));
   }
 }

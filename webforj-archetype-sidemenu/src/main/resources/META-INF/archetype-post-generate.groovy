@@ -10,8 +10,8 @@ def testPath = projectPath.resolve("src/test/java").resolve(packagePath).resolve
 
 if (flavor == "webforj-spring") {
     // For Spring flavor, delete the regular test and rename the Spring test
-    def regularTest = testPath.resolve("InboxViewIT.java")
-    def springTest = testPath.resolve("InboxViewSpringIT.java")
+    def regularTest = testPath.resolve("DashboardViewIT.java")
+    def springTest = testPath.resolve("DashboardViewSpringIT.java")
 
     if (Files.exists(regularTest)) {
         Files.delete(regularTest)
@@ -22,7 +22,7 @@ if (flavor == "webforj-spring") {
     }
 } else {
     // For regular webforj flavor, delete the Spring test
-    def springTest = testPath.resolve("InboxViewSpringIT.java")
+    def springTest = testPath.resolve("DashboardViewSpringIT.java")
 
     if (Files.exists(springTest)) {
         Files.delete(springTest)

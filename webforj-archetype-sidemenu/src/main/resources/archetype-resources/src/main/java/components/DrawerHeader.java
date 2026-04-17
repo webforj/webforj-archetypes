@@ -14,15 +14,16 @@ public class DrawerHeader extends Composite<FlexLayout> {
 
   public DrawerHeader() {
     self.setDirection(FlexDirection.COLUMN);
-    self.setSpacing("0px");
+    self.setSpacing("0");
 
-    H1 title = new H1("Mailbox");
-    title.setStyle("margin-bottom", "0");
-    self.add(title);
+    H1 title = new H1("Acme CRM");
+    title.setStyle("margin", "0");
 
-    Paragraph email = new Paragraph("john@mailbox.com");
-    email.setStyle("color", "${symbol_pound}86888f");
-    email.setStyle("font-size", ".7em");
-    self.add(email);
+    Paragraph email = new Paragraph("john@acme.com");
+    email.setStyle("color", "var(--dwc-color-gray-text-light)");
+    email.setStyle("font-size", "var(--dwc-font-size-xs)");
+    email.setStyle("margin", "0");
+
+    self.add(title, email);
   }
 }

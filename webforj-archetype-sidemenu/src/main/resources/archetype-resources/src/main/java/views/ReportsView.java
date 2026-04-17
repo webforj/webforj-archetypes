@@ -11,14 +11,14 @@ import com.webforj.component.layout.flexlayout.FlexLayout;
 import com.webforj.router.annotation.FrameTitle;
 import com.webforj.router.annotation.Route;
 
-@Route(value = "/spam", outlet = MainLayout.class)
-@FrameTitle("Spam")
-public class SpamView extends Composite<FlexLayout> {
+@Route(value = "/reports", outlet = MainLayout.class)
+@FrameTitle("Reports")
+public class ReportsView extends Composite<FlexLayout> {
   private FlexLayout self = getBoundComponent();
 
-  public SpamView() {
+  public ReportsView() {
     self.setHeight("100%");
     self.setAlignment(FlexAlignment.CENTER);
-    self.add(new Explore("Spam"));
+    self.add(new Explore("No reports yet", "chart-bar", "Build report"));
   }
 }
