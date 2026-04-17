@@ -11,5 +11,4 @@
 
 dwc-app-layout {
   --dwc-app-layout-header-height: 4rem;
-  transition: padding-left var(--dwc-transition), padding-right var(--dwc-transition);
 }

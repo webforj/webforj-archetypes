@@ -12,6 +12,7 @@ import com.webforj.component.icons.Icon;
 import com.webforj.component.icons.TablerIcon;
 import com.webforj.component.layout.flexlayout.FlexAlignment;
 import com.webforj.component.layout.flexlayout.FlexDirection;
+import com.webforj.component.layout.flexlayout.FlexJustifyContent;
 import com.webforj.component.layout.flexlayout.FlexLayout;
 import com.webforj.component.toast.Toast;
 
@@ -22,8 +23,10 @@ public class Explore extends Composite<FlexLayout> {
     self.addClassName("explore-component");
     self.setStyle("margin", "1em auto");
     self.setStyle("text-align", "center");
+    self.setHeight("100%");
     self.setDirection(FlexDirection.COLUMN);
     self.setAlignment(FlexAlignment.CENTER);
+    self.setJustifyContent(FlexJustifyContent.CENTER);
     self.setMaxWidth(400);
     self.setSpacing(".75em");
 
