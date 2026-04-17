@@ -16,7 +16,7 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class DashboardViewIT {
+class HomeViewSpringIT {
 
   static Playwright playwright = Playwright.create();
   Browser browser;
@@ -50,6 +50,6 @@ class DashboardViewIT {
   @Test
   void shouldClickButton() {
     assertThat(page.locator(".explore-component"))
-        .containsText("Dashboard");
+        .containsText("Your feed is empty");
   }
 }

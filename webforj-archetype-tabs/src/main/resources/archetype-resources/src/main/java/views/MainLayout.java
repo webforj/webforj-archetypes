@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.webforj.component.Component;
 import com.webforj.component.Composite;
+import com.webforj.component.Theme;
 import com.webforj.component.html.elements.H1;
 import com.webforj.component.icons.TablerIcon;
 import com.webforj.component.layout.applayout.AppLayout;
@@ -24,7 +25,7 @@ import com.webforj.router.history.Location;
 
 @Route
 public class MainLayout extends Composite<AppLayout> {
-  private static final String DEFAULT_VIEW = "dashboard";
+  private static final String DEFAULT_VIEW = "home";
   private AppLayout self = getBoundComponent();
   private TabbedPane nav = new TabbedPane();
   private H1 title = new H1();
@@ -50,13 +51,15 @@ public class MainLayout extends Composite<AppLayout> {
     nav.addClassName("app-nav");
     nav.setBodyHidden(true);
     nav.setBorderless(true);
+    nav.setSegment(true);
+    nav.setTheme(Theme.PRIMARY);
     nav.setPlacement(TabbedPane.Placement.BOTTOM);
     nav.setAlignment(TabbedPane.Alignment.CENTER);
 
-    nav.addTab(new Tab("Dashboard", TablerIcon.create("dashboard")));
-    nav.addTab(new Tab("Users", TablerIcon.create("users")));
-    nav.addTab(new Tab("Products", TablerIcon.create("box")));
-    nav.addTab(new Tab("Files", TablerIcon.create("files")));
+    nav.addTab(new Tab("Home", TablerIcon.create("home")));
+    nav.addTab(new Tab("Discover", TablerIcon.create("compass")));
+    nav.addTab(new Tab("Activity", TablerIcon.create("bell")));
+    nav.addTab(new Tab("Profile", TablerIcon.create("user")));
 
     self.addToFooter(nav);
   }

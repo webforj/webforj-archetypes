@@ -13,14 +13,14 @@ import com.webforj.router.annotation.Route;
 import com.webforj.router.annotation.RouteAlias;
 
 @Route(value = "/", outlet = MainLayout.class)
-@RouteAlias(value = "/dashboard")
-@FrameTitle("Dashboard")
-public class DashboardView extends Composite<FlexLayout> {
+@RouteAlias(value = "/home")
+@FrameTitle("Home")
+public class HomeView extends Composite<FlexLayout> {
   private FlexLayout self = getBoundComponent();
 
-  public DashboardView() {
+  public HomeView() {
     self.setHeight("100%");
     self.setAlignment(FlexAlignment.CENTER);
-    self.add(new Explore("Dashboard"));
+    self.add(new Explore("Your feed is empty", "home", "Find people to follow"));
   }
 }

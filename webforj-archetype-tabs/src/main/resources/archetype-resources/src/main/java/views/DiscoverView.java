@@ -11,14 +11,14 @@ import com.webforj.component.layout.flexlayout.FlexLayout;
 import com.webforj.router.annotation.FrameTitle;
 import com.webforj.router.annotation.Route;
 
-@Route(value = "/products", outlet = MainLayout.class)
-@FrameTitle("Products")
-public class ProductsView extends Composite<FlexLayout> {
+@Route(value = "/discover", outlet = MainLayout.class)
+@FrameTitle("Discover")
+public class DiscoverView extends Composite<FlexLayout> {
   private FlexLayout self = getBoundComponent();
 
-  public ProductsView() {
+  public DiscoverView() {
     self.setHeight("100%");
     self.setAlignment(FlexAlignment.CENTER);
-    self.add(new Explore("Products"));
+    self.add(new Explore("Nothing to discover yet", "compass", "Browse trending"));
   }
 }

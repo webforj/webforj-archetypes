@@ -12,7 +12,7 @@ import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 
-class DashboardViewIT {
+class HomeViewIT {
 
   static Playwright playwright = Playwright.create();
   Browser browser;
@@ -31,12 +31,12 @@ class DashboardViewIT {
 
     browser = playwright.chromium().launch();
     page = browser.newPage();
-    page.navigate("http://localhost:" + port + "/dashboard");
+    page.navigate("http://localhost:" + port + "/home");
   }
 
   @Test
   void shouldRenderPage() {
     assertThat(page.locator(".explore-component"))
-        .containsText("Dashboard");
+        .containsText("Your feed is empty");
   }
 }
