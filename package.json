@@ -1,0 +1,15 @@
+{
+  "name": "webforj-archetype-tooling",
+  "version": "1.0.0",
+  "description": "Tooling for webforJ archetypes (generation, screenshots, etc.)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate.cjs",
+    "screenshots": "node scripts/webforj-archetype-screenshots.mjs",
+    "screenshots:all": "npm run screenshots -- sidemenu && npm run screenshots -- tabs && npm run screenshots -- blank && npm run screenshots -- hello-world"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.47.0"
+  }
+}
