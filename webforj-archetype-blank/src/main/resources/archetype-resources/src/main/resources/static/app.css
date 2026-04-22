@@ -12,9 +12,3 @@
 dwc-app-layout {
   --dwc-app-layout-header-height: 4rem;
 }
-
-dwc-app-layout:not(:focus-within),
-dwc-app-layout:not(:focus-within)::part(header),
-dwc-app-layout:not(:focus-within)::part(footer) {
-  transition: none !important;
-}

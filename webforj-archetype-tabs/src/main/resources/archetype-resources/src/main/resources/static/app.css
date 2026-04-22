@@ -14,12 +14,6 @@ dwc-app-layout {
   --dwc-app-layout-footer-height: 5rem;
 }
 
-dwc-app-layout:not(:focus-within),
-dwc-app-layout:not(:focus-within)::part(header),
-dwc-app-layout:not(:focus-within)::part(footer) {
-  transition: none !important;
-}
-
 dwc-app-layout::part(footer) {
   background: transparent;
   border-top: 0;

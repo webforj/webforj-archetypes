@@ -1,9 +1,8 @@
-\${AnsiColor.BRIGHT_BLUE}
-██╗    ██╗███████╗██████╗ ███████╗ ██████╗ ██████╗      ██╗
-██║    ██║██╔════╝██╔══██╗██╔════╝██╔═══██╗██╔══██╗     ██║
-██║ █╗ ██║█████╗  ██████╔╝█████╗  ██║   ██║██████╔╝     ██║
-██║███╗██║██╔══╝  ██╔══██╗██╔══╝  ██║   ██║██╔══██╗██   ██║
-╚███╔███╔╝███████╗██████╔╝██║     ╚██████╔╝██║  ██║╚█████╔╝
- ╚══╝╚══╝ ╚══════╝╚═════╝ ╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚════╝
-\${AnsiColor.DEFAULT}
-  :: \${AnsiColor.BRIGHT_BLUE}webforJ\${AnsiColor.DEFAULT} (\${webforj.version}) ::
+${AnsiColor.BRIGHT_CYAN}██╗    ██╗███████╗██████╗ ███████╗ ██████╗ ██████╗      ██╗
+${AnsiColor.BRIGHT_BLUE}██║    ██║██╔════╝██╔══██╗██╔════╝██╔═══██╗██╔══██╗     ██║
+${AnsiColor.BLUE}██║ █╗ ██║█████╗  ██████╔╝█████╗  ██║   ██║██████╔╝     ██║
+${AnsiColor.BRIGHT_MAGENTA}██║███╗██║██╔══╝  ██╔══██╗██╔══╝  ██║   ██║██╔══██╗██   ██║
+${AnsiColor.MAGENTA}╚███╔███╔╝███████╗██████╔╝██║     ╚██████╔╝██║  ██║╚█████╔╝
+${AnsiColor.BRIGHT_MAGENTA} ╚══╝╚══╝ ╚══════╝╚═════╝ ╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚════╝
+${AnsiColor.DEFAULT}
+  :: ${AnsiColor.BRIGHT_CYAN}webforJ${AnsiColor.DEFAULT} (${AnsiColor.BRIGHT_MAGENTA}${webforj.version}${AnsiColor.DEFAULT}) ::
