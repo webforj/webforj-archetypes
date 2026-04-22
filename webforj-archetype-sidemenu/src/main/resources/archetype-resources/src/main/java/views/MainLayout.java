@@ -45,7 +45,7 @@ public class MainLayout extends Composite<AppLayout> {
     self.addToDrawerTitle(new DrawerHeader());
 
     Toolbar toolbar = new Toolbar();
-    toolbar.addToStart(new AppDrawerToggle());
+    toolbar.addToStart(new AppDrawerToggle(TablerIcon.create("layout-sidebar")));
     toolbar.addToTitle(title);
     toolbar.addToEnd(
         buildStubIconButton("search", "Search"),
