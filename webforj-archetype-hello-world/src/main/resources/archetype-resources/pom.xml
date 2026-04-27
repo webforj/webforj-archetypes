@@ -8,7 +8,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>4.0.4</version>
+    <version>4.0.6</version>
   </parent>
 #end
 
@@ -31,7 +31,7 @@
     <webforj.version>${webforj.version}</webforj.version>
 #if( ${flavor} == "webforj" )
 
-    <jetty.version>12.1.2</jetty.version>
+    <jetty.version>12.1.8</jetty.version>
     <!--
       Configures automatic reload of Jetty server
       (with 1 second timeout) when new classes are compiled.
@@ -155,7 +155,7 @@
     <dependency>
       <groupId>com.microsoft.playwright</groupId>
       <artifactId>playwright</artifactId>
-      <version>1.49.0</version>
+      <version>1.59.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -180,7 +180,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>3.5.1</version>
         <configuration>
           <webResources>
             <resource>
@@ -250,7 +250,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.0</version>
         <executions>
           <execution>
             <id>copy-webforj-config</id>
