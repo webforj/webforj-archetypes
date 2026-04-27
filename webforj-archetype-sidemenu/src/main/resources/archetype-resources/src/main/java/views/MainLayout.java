@@ -6,9 +6,9 @@ package ${package}.views;
 import java.util.Set;
 
 import ${package}.components.DrawerHeader;
+import ${package}.components.ThemeToggle;
 import ${package}.components.UserBadge;
 
-import com.webforj.App;
 import com.webforj.component.Component;
 import com.webforj.component.Composite;
 import com.webforj.component.Theme;
@@ -48,33 +48,19 @@ public class MainLayout extends Composite<AppLayout> {
     toolbar.addToStart(new AppDrawerToggle(TablerIcon.create("layout-sidebar")));
     toolbar.addToTitle(title);
     toolbar.addToEnd(
-        buildStubIconButton("search", "Search"),
-        buildStubIconButton("bell", "Notifications"),
-        buildThemeToggle(),
+        buildToolbarButton("search", "Search"),
+        buildToolbarButton("bell", "Notifications"),
+        new ThemeToggle(),
         new UserBadge("John Doe", "Admin"));
 
     self.addToHeader(toolbar);
   }
 
-  private IconButton buildStubIconButton(String iconName, String label) {
+  private IconButton buildToolbarButton(String iconName, String label) {
     IconButton button = new IconButton(TablerIcon.create(iconName));
     button.onClick(ev -> Toast.show("\"%s\" is not wired up yet".formatted(label), 3000, Theme.INFO,
         Toast.Placement.BOTTOM_RIGHT));
     return button;
-  }
-
-  private IconButton buildThemeToggle() {
-    IconButton button = new IconButton(TablerIcon.create(iconForTheme(App.getTheme())));
-    button.onClick(ev -> {
-      String next = "dark".equals(App.getTheme()) ? "light" : "dark";
-      App.setTheme(next);
-      button.setName(iconForTheme(next));
-    });
-    return button;
-  }
-
-  private String iconForTheme(String theme) {
-    return "dark".equals(theme) ? "sun" : "moon";
   }
 
   private void setDrawer() {
@@ -91,7 +77,7 @@ public class MainLayout extends Composite<AppLayout> {
 
   private void setDrawerFooter() {
     self.setDrawerFooterVisible(true);
-    self.addToDrawerFooter(buildStubIconButton("logout", "Logout"));
+    self.addToDrawerFooter(buildToolbarButton("logout", "Logout"));
   }
 
   @Override
