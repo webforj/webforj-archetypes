@@ -50,7 +50,8 @@ jobs:
                   "enabled": "false"
                 },
                 "snapshots": {
-                  "enabled": "true"
+                  "enabled": "true",
+                  "updatePolicy": "always"
                 }
               }
             ]
