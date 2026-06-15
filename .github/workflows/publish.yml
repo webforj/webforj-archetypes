@@ -111,4 +111,4 @@ jobs:
           PASSPHRASE: ""
 
       - name: Publish to Nexus
-        run: mvn clean deploy -DskipTests -Dwebforj.version=${{ env.VERSION }} -P perform-release
+        run: mvn -U clean deploy -DskipTests -Dwebforj.version=${{ env.VERSION }} -P perform-release
