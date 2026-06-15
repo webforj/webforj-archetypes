@@ -17,11 +17,7 @@ ${symbol_pound}${symbol_pound} Getting Started
 To run the application in development mode:
 
 ```bash
-#if( ${flavor} == "webforj-spring" )
-mvn spring-boot:run
-#else
-mvn jetty:run
-#end
+mvn
 ```
 
 Then open [http://localhost:8080](http://localhost:8080) in your browser.

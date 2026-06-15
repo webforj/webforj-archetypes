@@ -58,7 +58,6 @@
         <include>blsclient.conf</include>
         <include>webforj-dev.conf</include>
         <include>webforj-prod.conf</include>
-        <include>**/*.css</include>
       </includes>
       <excludes>
         <exclude>application.properties</exclude>
@@ -72,13 +71,18 @@
         <include>blsclient.conf</include>
         <include>application.properties</include>
         <include>banner.txt</include>
-        <include>**/*.css</include>
       </includes>
       <excludes>
         <exclude>webforj-dev.conf</exclude>
         <exclude>webforj-prod.conf</exclude>
         <exclude>webforj.conf</exclude>
       </excludes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>src/main/frontend</directory>
+      <includes>
+        <include>**/*.css</include>
+      </includes>
     </fileSet>
     <fileSet filtered="true" encoding="UTF-8" includeCondition="${flavor.equals('webforj')}">
       <directory>src/main/webapp</directory>

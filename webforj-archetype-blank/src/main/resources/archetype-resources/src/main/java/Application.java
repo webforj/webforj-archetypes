@@ -11,13 +11,13 @@ import com.webforj.App;
 import com.webforj.annotation.AppProfile;
 import com.webforj.annotation.AppTheme;
 import com.webforj.annotation.Routify;
-import com.webforj.annotation.StyleSheet;
+import com.webforj.bundle.annotation.BundleEntry;
 
 #if( ${flavor} == "webforj-spring" )
 @SpringBootApplication
 #end
 @Routify(packages = "${package}.views")
-@StyleSheet("ws://app.css")
+@BundleEntry("app.css")
 @AppTheme("system")
 @AppProfile(name = "${appName}", shortName = "${appName}")
 public class Application extends App {

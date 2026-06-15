@@ -162,9 +162,9 @@
 
   <build>
 #if( ${flavor} == "webforj-spring" )
-    <defaultGoal>spring-boot:run</defaultGoal>
+    <defaultGoal>compile webforj:watch spring-boot:run</defaultGoal>
 #else
-    <defaultGoal>jetty:run</defaultGoal>
+    <defaultGoal>compile webforj:watch jetty:run</defaultGoal>
 #end
     <plugins>
 #if( ${flavor} == "webforj-spring" )
@@ -200,6 +200,12 @@
         <version>${jetty.version}</version>
         <configuration>
           <scan>${jetty.scan}</scan>
+          <scanClassesPattern>
+            <excludes>
+              <exclude>**/static</exclude>
+              <exclude>**/static/**</exclude>
+            </excludes>
+          </scanClassesPattern>
           <stopPort>${jetty.stopPort}</stopPort>
           <stopKey>\${project.artifactId}</stopKey>
           <stopWait>\${jetty.stopWait}</stopWait>
@@ -228,6 +234,14 @@
         </executions>
       </plugin>
 #end
+
+      <!-- webforJ build plugin, drives the frontend bundler (bundle, watch, test, clean) -->
+      <plugin>
+        <groupId>com.webforj</groupId>
+        <artifactId>webforj-maven-plugin</artifactId>
+        <version>\${webforj.version}</version>
+        <extensions>true</extensions>
+      </plugin>
 
       <!-- Runs the integration tests (*IT) after the server is started -->
       <plugin>
@@ -299,45 +313,6 @@
             </configuration>
           </plugin>
 #end
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-              <annotationProcessorPaths>
-                <path>
-                  <groupId>com.webforj</groupId>
-                  <artifactId>webforj-minify-foundation</artifactId>
-                  <version>\${webforj.version}</version>
-                </path>
-              </annotationProcessorPaths>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>com.webforj</groupId>
-            <artifactId>webforj-minify-maven-plugin</artifactId>
-            <version>\${webforj.version}</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>minify</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-            </configuration>
-            <dependencies>
-              <dependency>
-                <groupId>com.webforj</groupId>
-                <artifactId>webforj-minify-phcss-css</artifactId>
-                <version>\${webforj.version}</version>
-              </dependency>
-              <dependency>
-                <groupId>com.webforj</groupId>
-                <artifactId>webforj-minify-closure-js</artifactId>
-                <version>\${webforj.version}</version>
-              </dependency>
-            </dependencies>
-          </plugin>
         </plugins>
       </build>
     </profile>
@@ -350,6 +325,12 @@
       <properties>
         <config.file>webforj-dev.conf</config.file>
       </properties>
+      <dependencies>
+        <dependency>
+          <groupId>com.webforj</groupId>
+          <artifactId>webforj-devtools</artifactId>
+        </dependency>
+      </dependencies>
 #end
     </profile>
   </profiles>
