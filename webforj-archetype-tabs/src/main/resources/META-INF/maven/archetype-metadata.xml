@@ -18,6 +18,8 @@
       <includes>
         <include>.editorconfig</include>
         <include>.gitignore</include>
+        <include>.mcp.json</include>
+        <include>AGENTS.md</include>
       </includes>
     </fileSet>
     <fileSet filtered="true" encoding="UTF-8">
@@ -28,6 +30,24 @@
     </fileSet>
     <fileSet encoding="UTF-8">
       <directory>.vscode</directory>
+      <includes>
+        <include>**/*.json</include>
+      </includes>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+      <directory>.gemini</directory>
+      <includes>
+        <include>settings.json</include>
+      </includes>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+      <directory>.codex</directory>
+      <includes>
+        <include>config.toml</include>
+      </includes>
+    </fileSet>
+    <fileSet encoding="UTF-8">
+      <directory>.junie</directory>
       <includes>
         <include>**/*.json</include>
       </includes>
