@@ -29,41 +29,41 @@ This project leverages Spring Boot's features:
 
 - **Embedded Server**: No need to deploy WAR files, runs as a standalone JAR
 - **Auto-configuration**: Spring Boot automatically configures your application
-- **DevTools**: Automatic restart when code changes (included by default)
 - **Spring Ecosystem**: Easy integration with Spring Data, etc.
 
-${symbol_pound}${symbol_pound}${symbol_pound} Hot Reload with DevTools
+${symbol_pound}${symbol_pound}${symbol_pound} Live Class Updates
 
-Spring Boot DevTools is included for automatic application restart:
+The project runs with hotswap turned on. The webforJ plugin attaches the class update tool to the application when it starts:
 
 ```xml
-<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-devtools</artifactId>
-  <optional>true</optional>
-</dependency>
+<hotswap>
+  <hotswapAgent/>
+</hotswap>
 ```
 
-Your application will automatically restart when files on the classpath change.
-
+Recompile after a change, your IDE's build on save is enough, and the running application picks up the new classes. Open views update in the browser without losing their state.
 #else
-This project is preconfigured to use the **Jetty Maven Plugin**, which makes development faster. It includes automatic scanning for class and resource changes.
+This project is preconfigured to use the **Jetty Maven Plugin**, which makes development faster.
 
-${symbol_pound}${symbol_pound}${symbol_pound} Jetty Auto-Reload (Hot Deployment)
+${symbol_pound}${symbol_pound}${symbol_pound} Live Class Updates
 
-By default, this project enables **Jetty's scan mode** using the following property:
+The project runs with hotswap turned on. The webforJ plugin attaches the class update tool to the application when it starts:
 
 ```xml
-<jetty.scan>1</jetty.scan>
+<hotswap>
+  <hotswapAgent/>
+</hotswap>
 ```
 
-This means Jetty will **poll for changes in compiled classes and resources every second**, allowing the app to **auto-reload** without restarting the server. This is great for quick feedback while developing UI or backend logic.
+Recompile after a change, your IDE's build on save is enough, and the running application picks up the new classes. Open views update in the browser without losing their state.
 
-If you're using a live reload tool (like JRebel or similar), you may want to set this to `0` to disable it.
+Jetty's own scan mode restarts the webapp whenever compiled classes change, which would replace the in place updates with full restarts, so it stays off:
 
 ```xml
 <jetty.scan>0</jetty.scan>
 ```
+
+Set it to `1` to fall back to restart based reloading when hotswap is turned off.
 #end
 
 ${symbol_pound}${symbol_pound} Running Integration Tests

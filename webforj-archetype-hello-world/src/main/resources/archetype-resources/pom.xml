@@ -33,11 +33,12 @@
 
     <jetty.version>12.1.8</jetty.version>
     <!--
-      Configures automatic reload of Jetty server
-      (with 1 second timeout) when new classes are compiled.
-      Should be disabled when using a live reload system, such as JRebel.
+      Configures automatic reload of Jetty server when new classes are compiled.
+      Class reloading is owned by the hotswap tool the webforJ plugin attaches,
+      so the scan stays off. Set to 1 to fall back to restart based reloading
+      when hotswap is turned off.
       -->
-    <jetty.scan>1</jetty.scan>
+    <jetty.scan>0</jetty.scan>
     <jetty.port>8080</jetty.port>
     <jetty.stopPort>9966</jetty.stopPort>
     <jetty.stopWait>30</jetty.stopWait>
@@ -94,12 +95,6 @@
   </dependencyManagement>
 
   <dependencies>
-    <dependency>
-      <groupId>com.webforj</groupId>
-      <artifactId>webforj</artifactId>
-      <version>\${webforj.version}</version>
-    </dependency>
-
 #if( ${flavor} == "webforj-spring" )
     <dependency>
       <groupId>com.webforj</groupId>
@@ -121,30 +116,26 @@
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency> -->
 
-    <dependency>
-      <groupId>com.webforj</groupId>
-      <artifactId>webforj-spring-devtools</artifactId>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
+    <!-- The webforJ plugin delivers the webforJ development tools to development runs on
+      its own. Spring DevTools is optional, restore it for its restart based reloading. -->
+    <!-- <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <optional>true</optional>
-    </dependency>
+    </dependency> -->
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>com.vaadin.external.google</groupId>
-          <artifactId>android-json</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 #else
+    <dependency>
+      <groupId>com.webforj</groupId>
+      <artifactId>webforj</artifactId>
+      <version>\${webforj.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -235,18 +226,27 @@
       </plugin>
 #end
 
-      <!-- webforJ build plugin, drives the frontend bundler (bundle, watch, test, clean) -->
+      <!-- webforJ build plugin, drives the frontend bundler (bundle, watch, test, clean)
+        and attaches the configured hotswap tool to the application run -->
       <plugin>
         <groupId>com.webforj</groupId>
         <artifactId>webforj-maven-plugin</artifactId>
         <version>\${webforj.version}</version>
         <extensions>true</extensions>
+        <configuration>
+          <hotswap>
+            <hotswapAgent/>
+          </hotswap>
+        </configuration>
       </plugin>
 
       <!-- Runs the integration tests (*IT) after the server is started -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
+#if( ${flavor} != "webforj-spring" )
+        <version>3.5.6</version>
+#end
         <executions>
           <execution>
             <goals>
@@ -296,25 +296,6 @@
         <config.file>webforj-prod.conf</config.file>
       </properties>
 #end
-      <build>
-        <plugins>
-#if( ${flavor} == "webforj-spring" )
-          <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <configuration>
-              <excludeDevtools>true</excludeDevtools>
-              <excludes>
-                <exclude>
-                  <groupId>com.webforj</groupId>
-                  <artifactId>webforj-spring-devtools</artifactId>
-                </exclude>
-              </excludes>
-            </configuration>
-          </plugin>
-#end
-        </plugins>
-      </build>
     </profile>
     <profile>
       <id>dev</id>
