@@ -29,6 +29,10 @@
     <maven.compiler.target>21</maven.compiler.target>
 
     <webforj.version>${webforj.version}</webforj.version>
+#if( ${flavor} == "webforj-spring" )
+    <!-- Applies only to Maven runs. Packaged JARs select profiles at startup. -->
+    <spring-boot.run.profiles>dev</spring-boot.run.profiles>
+#end
 #if( ${flavor} == "webforj" )
 
     <jetty.version>12.1.8</jetty.version>
@@ -286,23 +290,21 @@
     </plugins>
   </build>
 
+#if( ${flavor} != "webforj-spring" )
   <profiles>
     <profile>
       <id>prod</id>
       <activation>
       </activation>
-#if( ${flavor} != "webforj-spring" )
       <properties>
         <config.file>webforj-prod.conf</config.file>
       </properties>
-#end
     </profile>
     <profile>
       <id>dev</id>
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
-#if( ${flavor} != "webforj-spring" )
       <properties>
         <config.file>webforj-dev.conf</config.file>
       </properties>
@@ -312,7 +314,7 @@
           <artifactId>webforj-devtools</artifactId>
         </dependency>
       </dependencies>
-#end
     </profile>
   </profiles>
+#end
 </project>

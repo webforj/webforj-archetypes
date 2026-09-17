@@ -9,6 +9,12 @@ def packagePath = request.properties.get("package").replace(".", "/")
 def testPath = projectPath.resolve("src/test/java").resolve(packagePath).resolve("views")
 
 if (flavor == "webforj-spring") {
+    def instructions = projectPath.resolve("AGENTS.md")
+    Files.writeString(instructions, Files.readString(instructions).replace(
+        "- `mvn -Pprod package` — production build into `target/`.",
+        "- `mvn package` — build the executable JAR into `target/`.\n" +
+        "- Run the JAR with `--spring.profiles.active=prod` for production overrides. Without a profile it uses shared defaults."))
+
     // For Spring flavor, delete the regular test and rename the Spring test
     def regularTest = testPath.resolve("HelloWorldViewIT.java")
     def springTest = testPath.resolve("HelloWorldViewSpringIT.java")

@@ -90,7 +90,14 @@ This command:
 #if( ${flavor} == "webforj-spring" )
 ${symbol_pound}${symbol_pound} Spring Boot Configuration
 
-Configure your application using `src/main/resources/application.properties`:
+Configuration lives in `src/main/resources/`:
+
+- `application.properties` contains shared defaults, with development features disabled.
+- `application-dev.properties` enables development features and immediate shutdown.
+- `application-prod.properties` inherits shared defaults and is ready for production overrides.
+
+Spring loads the shared file and overrides individual settings from the active profile.
+Keep common settings in the shared file, for example:
 
 ```properties
 # Application name
@@ -109,9 +116,18 @@ ${symbol_pound}${symbol_pound} Building for Production
 To create an executable JAR:
 
 ```bash
-mvn clean package -Pprod
-java -jar target/${artifactId}-${version}.jar
+mvn clean package
+java -jar target/${artifactId}-${version}.jar --spring.profiles.active=prod
 ```
+
+The same JAR can run in each environment. Without a profile argument or external
+profile selection, it uses shared defaults. Neither `dev` nor `prod` is active.
+Select a profile with `--spring.profiles.active=prod` or `SPRING_PROFILES_ACTIVE=prod`.
+Environment variables and command-line arguments can override individual settings.
+
+Plain `mvn` activates Spring's `dev` profile through `spring-boot.run.profiles`.
+Override it with `mvn -Dspring-boot.run.profiles=prod`. No Maven profiles are needed.
+This Maven run default does not affect the packaged JAR.
 
 Or build and run a Docker image:
 

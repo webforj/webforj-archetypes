@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import com.microsoft.playwright.Browser;
@@ -16,6 +17,7 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 class HelloWorldViewIT {
 
   static Playwright playwright = Playwright.create();
