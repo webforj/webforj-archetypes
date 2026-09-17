@@ -11,7 +11,7 @@
 
   <groupId>com.webforj</groupId>
   <artifactId>webforj-archetypes</artifactId>
-  <version>26.02</version>
+  <version>26.03-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>webforj-archetypes</name>
