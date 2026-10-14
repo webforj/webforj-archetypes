@@ -37,5 +37,5 @@ The `flavor` parameter allows you to choose between different webforJ project co
 |----------------|-------------|
 | **webforj-archetype-sidemenu** | A starting project with a side menu and navigation in the content area. |
 | **webforj-archetype-tabs** | A starting project with a simple tabbed interface. |
-| **webforj-archetype-hello-world** | A webforJ "Hello World" starter. Use `webforj-archetype-hello-world` to deploy as standalone WAR and `webforj-archetype-bbj-hello-world` to deploy as standalone JAR for applications running on BBjServices. |
+| **webforj-archetype-hello-world** | A webforJ "Hello World" starter. |
 | **webforj-archetype-blank** | A blank starter project for webforJ applications. |
