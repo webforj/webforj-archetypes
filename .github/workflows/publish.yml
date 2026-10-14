@@ -38,41 +38,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-m2-
 
-      - name: Write maven settings
-        uses: whelk-io/maven-settings-xml-action@v20
-        with:
-          repositories: |
-            [
-              {
-                "id": "central-portal-snapshots",
-                "url": "https://central.sonatype.com/repository/maven-snapshots/",
-                "releases": {
-                  "enabled": "false"
-                },
-                "snapshots": {
-                  "enabled": "true",
-                  "updatePolicy": "always"
-                }
-              }
-            ]
-          servers: >
-            [
-              {
-                "id": "central",
-                "username": "${{secrets.CENTRAL_USERNAME}}",
-                "password": "${{secrets.CENTRAL_TOKEN}}"
-              }
-            ]
-          profiles: >
-            [
-              {
-                "id": "central",
-                "activation": {
-                  "activeByDefault": true
-                }
-              }
-            ]
-
       - name: Set version with SNAPSHOT if not creating a release
         id: set_version
         run: |
@@ -112,4 +77,7 @@ jobs:
           PASSPHRASE: ""
 
       - name: Publish to Nexus
-        run: mvn -U clean deploy -DskipTests -Dwebforj.version=${{ env.VERSION }} -P perform-release
+        run: mvn -U clean deploy -DskipTests -Dwebforj.version=${{ env.VERSION }} -P perform-release --settings .github/maven-settings.xml
+        env:
+          CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          CENTRAL_TOKEN: ${{ secrets.CENTRAL_TOKEN }}
