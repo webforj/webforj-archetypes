@@ -11,6 +11,9 @@ ${symbol_pound}${symbol_pound} Prerequisites
 
 - Java 21 or newer  
 - Maven 3.9+
+#if( ${flavor} == "webforj-bbj" )
+- BBj with BBjServices running on this machine
+#end
 
 ${symbol_pound}${symbol_pound} Getting Started
 
@@ -20,7 +23,11 @@ To run the application in development mode:
 mvn
 ```
 
+#if( ${flavor} == "webforj-bbj" )
+The build publishes the app in the BBjServices of this machine. Then open [http://localhost:8888/webapp/${artifactId}](http://localhost:8888/webapp/${artifactId}) in your browser.
+#else
 Then open [http://localhost:8080](http://localhost:8080) in your browser.
+#end
 
 #if( ${flavor} == "webforj-spring" )
 ${symbol_pound}${symbol_pound}${symbol_pound} Spring Boot Features
@@ -34,6 +41,20 @@ This project leverages Spring Boot's features:
 ${symbol_pound}${symbol_pound}${symbol_pound} Live Class Updates
 
 The project runs with hotswap turned on. The webforJ plugin attaches the class update tool to the application when it starts:
+
+```xml
+<hotswap>
+  <hotswapAgent/>
+</hotswap>
+```
+
+Recompile after a change, your IDE's build on save is enough, and the running application picks up the new classes. Open views update in the browser without losing their state.
+#elseif( ${flavor} == "webforj-bbj" )
+This project is preconfigured to run on **BBjShip**, the webforJ BBj plugin. The first run installs BBjShip in the BBj installation of this machine and sets BBjServices up for development runs. Stopping the build removes the app from BBjServices again.
+
+${symbol_pound}${symbol_pound}${symbol_pound} Live Class Updates
+
+The project runs with hotswap turned on. The webforJ plugin adds the class update tool to the Java settings of BBjServices and restarts BBjServices when it runs without that tool:
 
 ```xml
 <hotswap>
@@ -65,6 +86,7 @@ Jetty's own scan mode restarts the webapp whenever compiled classes change, whic
 
 Set it to `1` to fall back to restart based reloading when hotswap is turned off.
 #end
+#if( ${flavor} != "webforj-bbj" )
 
 ${symbol_pound}${symbol_pound} Running Integration Tests
 
@@ -87,6 +109,7 @@ This command:
 - Shuts down Jetty after tests complete
 #end
 
+#end
 #if( ${flavor} == "webforj-spring" )
 ${symbol_pound}${symbol_pound} Spring Boot Configuration
 
@@ -140,6 +163,18 @@ docker run -p 8080:8080 ${artifactId}:${version}
 
 # Or run with environment variables
 docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod ${artifactId}:${version}
+```
+#elseif( ${flavor} == "webforj-bbj" )
+To build the app for production and deploy it to BBjShip:
+
+```bash
+mvn clean install -Pprod
+```
+
+The build writes the deployment archive `target/bbj/${artifactId}.zip` and deploys it to BBjShip at `http://localhost:8888/webforj-bbjship`. To write the archive without deploying it:
+
+```bash
+mvn clean package -Pprod
 ```
 #else
 To create a WAR file for deployment:

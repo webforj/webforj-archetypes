@@ -13,22 +13,22 @@ const archetypes = [
   {
     artifactId: 'webforj-archetype-hello-world',
     name: 'Hello World',
-    flavors: ['webforj', 'webforj-spring']
+    flavors: ['webforj', 'webforj-spring', 'webforj-bbj']
   },
   {
     artifactId: 'webforj-archetype-blank',
     name: 'Blank',
-    flavors: ['webforj', 'webforj-spring']
+    flavors: ['webforj', 'webforj-spring', 'webforj-bbj']
   },
   {
     artifactId: 'webforj-archetype-tabs',
     name: 'Tabs',
-    flavors: ['webforj', 'webforj-spring']
+    flavors: ['webforj', 'webforj-spring', 'webforj-bbj']
   },
   {
     artifactId: 'webforj-archetype-sidemenu',
     name: 'Sidemenu',
-    flavors: ['webforj', 'webforj-spring']
+    flavors: ['webforj', 'webforj-spring', 'webforj-bbj']
   }
 ];
 
@@ -50,7 +50,8 @@ let failureCount = 0;
 archetypes.forEach(archetype => {
   archetype.flavors.forEach(flavor => {
     const projectName = `${archetype.artifactId.replace('webforj-archetype-', '')}-${flavor.replace('webforj-', '')}`;
-    const appName = `${archetype.name} ${flavor === 'webforj-spring' ? 'Spring' : ''}`.trim();
+    const flavorNames = { 'webforj-spring': 'Spring', 'webforj-bbj': 'BBj' };
+    const appName = `${archetype.name} ${flavorNames[flavor] || ''}`.trim();
 
     console.log(`\n📦 Generating: ${projectName}`);
     console.log(`   Archetype: ${archetype.artifactId}`);

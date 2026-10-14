@@ -26,6 +26,19 @@ if (flavor == "webforj-spring") {
     if (Files.exists(springTest)) {
         Files.move(springTest, regularTest)
     }
+} else if (flavor == "webforj-bbj") {
+    def instructions = projectPath.resolve("AGENTS.md")
+    def text = Files.readString(instructions)
+        .replaceAll(/(?s)## Testing\n.*?(?=## )/, "")
+        .readLines()
+        .findAll { !it.contains("`mvn verify`") }
+        .join("\n") + "\n"
+    Files.writeString(instructions, text
+        .replace("`mvn -Pprod package`", "`mvn -Pprod install`")
+        .replace("production build into `target/`.", "production build, deployed to BBjShip."))
+
+    // For BBj flavor, the deploy runs at install after the integration tests, so the project has no tests
+    projectPath.resolve("src/test").toFile().deleteDir()
 } else {
     // For regular webforj flavor, delete the Spring test
     def springTest = testPath.resolve("HomeViewSpringIT.java")

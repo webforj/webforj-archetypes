@@ -29,6 +29,7 @@ The `flavor` parameter allows you to choose between different webforJ project co
 |--------|-------------|
 | **webforj-spring** | Creates a Spring Boot-based webforJ application with Spring framework integration, dependency injection, and web server capabilities. |
 | **webforj** | Creates a standard webforJ application without Spring framework dependencies, suitable for traditional webforJ deployments. |
+| **webforj-bbj** | Creates a standard webforJ application that runs in BBjServices through BBjShip, the webforJ BBj plugin. `mvn` starts a development run on the local BBj and `mvn install` deploys the application. |
 
 ## Available Archetypes
 

@@ -85,6 +85,19 @@
         <exclude>banner.txt</exclude>
       </excludes>
     </fileSet>
+    <fileSet filtered="true" encoding="UTF-8" includeCondition="${flavor.equals('webforj-bbj')}">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>blsclient.conf</include>
+        <include>webforj-dev.conf</include>
+        <include>webforj-prod.conf</include>
+      </includes>
+      <excludes>
+        <exclude>application.properties</exclude>
+        <exclude>webforj.conf</exclude>
+        <exclude>banner.txt</exclude>
+      </excludes>
+    </fileSet>
     <fileSet filtered="true" encoding="UTF-8" includeCondition="${flavor.equals('webforj-spring')}">
       <directory>src/main/resources</directory>
       <includes>

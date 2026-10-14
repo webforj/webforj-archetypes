@@ -138,7 +138,25 @@
       <groupId>com.webforj</groupId>
       <artifactId>webforj</artifactId>
       <version>\${webforj.version}</version>
+#if( ${flavor} == "webforj-bbj" )
+      <exclusions>
+        <exclusion>
+          <groupId>com.webforj</groupId>
+          <artifactId>webforj-engine</artifactId>
+        </exclusion>
+      </exclusions>
+#end
     </dependency>
+#if( ${flavor} == "webforj-bbj" )
+
+    <dependency>
+      <groupId>com.webforj</groupId>
+      <artifactId>webforj-engine</artifactId>
+      <version>\${webforj.version}</version>
+      <scope>provided</scope>
+    </dependency>
+#end
+#if( ${flavor} != "webforj-bbj" )
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -146,6 +164,8 @@
       <scope>test</scope>
     </dependency>
 #end
+#end
+#if( ${flavor} != "webforj-bbj" )
 
     <dependency>
       <groupId>com.microsoft.playwright</groupId>
@@ -153,11 +173,14 @@
       <version>1.59.0</version>
       <scope>test</scope>
     </dependency>
+#end
   </dependencies>
 
   <build>
 #if( ${flavor} == "webforj-spring" )
     <defaultGoal>compile webforj:watch spring-boot:run</defaultGoal>
+#elseif( ${flavor} == "webforj-bbj" )
+    <defaultGoal>compile webforj:watch</defaultGoal>
 #else
     <defaultGoal>compile webforj:watch jetty:run</defaultGoal>
 #end
@@ -170,7 +193,7 @@
           <excludeDevtools>true</excludeDevtools>
         </configuration>
       </plugin>
-#else
+#elseif( ${flavor} == "webforj" )
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -241,8 +264,17 @@
           <hotswap>
             <hotswapAgent/>
           </hotswap>
+#if( ${flavor} == "webforj-bbj" )
+          <bbj>
+            <publishName>\${artifactId}</publishName>
+            <deployment>
+              <url>http://localhost:8888/webforj-bbjship</url>
+            </deployment>
+          </bbj>
+#end
         </configuration>
       </plugin>
+#if( ${flavor} != "webforj-bbj" )
 
       <!-- Runs the integration tests (*IT) after the server is started -->
       <plugin>
@@ -263,6 +295,7 @@
           <trimStackTrace>false</trimStackTrace>
         </configuration>
       </plugin>
+#end
 #if( ${flavor} != "webforj-spring" )
 
       <plugin>
@@ -276,7 +309,8 @@
             <configuration>
               <target>
                 <copy file="src/main/resources/${config.file}"
-                  tofile="\${project.build.outputDirectory}/webforj.conf" />
+                  tofile="\${project.build.outputDirectory}/webforj.conf"
+                  overwrite="true" />
               </target>
             </configuration>
             <goals>
@@ -308,12 +342,14 @@
       <properties>
         <config.file>webforj-dev.conf</config.file>
       </properties>
+#if( ${flavor} == "webforj" )
       <dependencies>
         <dependency>
           <groupId>com.webforj</groupId>
           <artifactId>webforj-devtools</artifactId>
         </dependency>
       </dependencies>
+#end
     </profile>
   </profiles>
 #end
