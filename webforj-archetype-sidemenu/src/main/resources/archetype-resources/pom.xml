@@ -266,7 +266,7 @@
           </hotswap>
 #if( ${flavor} == "webforj-bbj" )
           <bbj>
-            <publishName>\${artifactId}</publishName>
+            <publishName>\${project.artifactId}</publishName>
             <deployment>
               <url>http://localhost:8888/webforj-bbjship</url>
             </deployment>
