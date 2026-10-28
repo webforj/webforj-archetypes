@@ -85,7 +85,7 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-#if( ${flavor} == "webforj" )
+#if( ${flavor} != "webforj-spring" )
 
       <dependency>
         <groupId>org.junit</groupId>
@@ -133,6 +133,12 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.webforj</groupId>
+      <artifactId>webforj-spring-testbed</artifactId>
+      <scope>test</scope>
+    </dependency>
 #else
     <dependency>
       <groupId>com.webforj</groupId>
@@ -156,21 +162,16 @@
       <scope>provided</scope>
     </dependency>
 #end
-#if( ${flavor} != "webforj-bbj" )
 
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>
     </dependency>
-#end
-#end
-#if( ${flavor} != "webforj-bbj" )
 
     <dependency>
-      <groupId>com.microsoft.playwright</groupId>
-      <artifactId>playwright</artifactId>
-      <version>1.59.0</version>
+      <groupId>com.webforj</groupId>
+      <artifactId>webforj-testbed-junit</artifactId>
       <scope>test</scope>
     </dependency>
 #end
@@ -234,22 +235,6 @@
             <contextPath>/</contextPath>
           </webApp>
         </configuration>
-        <executions>
-          <execution>
-            <id>start-jetty</id>
-            <phase>pre-integration-test</phase>
-            <goals>
-              <goal>start</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>stop-jetty</id>
-            <phase>post-integration-test</phase>
-            <goals>
-              <goal>stop</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
 #end
 
@@ -274,28 +259,6 @@
 #end
         </configuration>
       </plugin>
-#if( ${flavor} != "webforj-bbj" )
-
-      <!-- Runs the integration tests (*IT) after the server is started -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-#if( ${flavor} != "webforj-spring" )
-        <version>3.5.6</version>
-#end
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <trimStackTrace>false</trimStackTrace>
-        </configuration>
-      </plugin>
-#end
 #if( ${flavor} != "webforj-spring" )
 
       <plugin>

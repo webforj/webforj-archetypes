@@ -16,8 +16,8 @@ if (flavor == "webforj-spring") {
         "- Run the JAR with `--spring.profiles.active=prod` for production overrides. Without a profile it uses shared defaults."))
 
     // For Spring flavor, delete the regular test and rename the Spring test
-    def regularTest = testPath.resolve("HelloWorldViewIT.java")
-    def springTest = testPath.resolve("HelloWorldViewSpringIT.java")
+    def regularTest = testPath.resolve("HelloWorldViewTest.java")
+    def springTest = testPath.resolve("HelloWorldViewSpringTest.java")
     
     if (Files.exists(regularTest)) {
         Files.delete(regularTest)
@@ -28,20 +28,17 @@ if (flavor == "webforj-spring") {
     }
 } else if (flavor == "webforj-bbj") {
     def instructions = projectPath.resolve("AGENTS.md")
-    def text = Files.readString(instructions)
-        .replaceAll(/(?s)## Testing\n.*?(?=## )/, "")
-        .readLines()
-        .findAll { !it.contains("`mvn verify`") }
-        .join("\n") + "\n"
-    Files.writeString(instructions, text
+    Files.writeString(instructions, Files.readString(instructions)
         .replace("`mvn -Pprod package`", "`mvn -Pprod install`")
         .replace("production build into `target/`.", "production build, deployed to BBjShip."))
 
-    // For BBj flavor, the deploy runs at install after the integration tests, so the project has no tests
-    projectPath.resolve("src/test").toFile().deleteDir()
+    def springTest = testPath.resolve("HelloWorldViewSpringTest.java")
+    if (Files.exists(springTest)) {
+        Files.delete(springTest)
+    }
 } else {
     // For regular webforj flavor, delete the Spring test
-    def springTest = testPath.resolve("HelloWorldViewSpringIT.java")
+    def springTest = testPath.resolve("HelloWorldViewSpringTest.java")
     
     if (Files.exists(springTest)) {
         Files.delete(springTest)

@@ -86,30 +86,21 @@ Jetty's own scan mode restarts the webapp whenever compiled classes change, whic
 
 Set it to `1` to fall back to restart based reloading when hotswap is turned off.
 #end
-#if( ${flavor} != "webforj-bbj" )
 
-${symbol_pound}${symbol_pound} Running Integration Tests
+${symbol_pound}${symbol_pound} Running Tests
 
-To run end-to-end and integration tests:
+The tests run with the webforJ TestBed, without a browser or a server:
 
 ```bash
-mvn verify
+mvn test
 ```
 
 #if( ${flavor} == "webforj-spring" )
-This command runs your integration tests using Spring Boot Test framework. Tests annotated with `@SpringBootTest` will:
-- Start the full Spring application context
-- Run on a random port to avoid conflicts
-- Execute Playwright browser tests against the running application
-- Automatically shut down after tests complete
+Each test launches the application inside the Spring test context, so views receive their beans, then navigates to a view, interacts with its components and asserts their state.
 #else
-This command:
-- Starts Jetty before tests using the `jetty:start` goal
-- Runs integration tests using the **Failsafe Plugin** (tests ending with `*IT.java`)
-- Shuts down Jetty after tests complete
+Each test launches the application, navigates to a view, interacts with its components and asserts their state.
 #end
 
-#end
 #if( ${flavor} == "webforj-spring" )
 ${symbol_pound}${symbol_pound} Spring Boot Configuration
 

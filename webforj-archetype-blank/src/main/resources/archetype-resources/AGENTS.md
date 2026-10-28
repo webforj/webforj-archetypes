@@ -5,7 +5,7 @@ This is a webforJ project: the UI is built by composing webforJ components in Ja
 ## Commands
 
 - `mvn` — dev mode. The default goal (`compile webforj:watch <run>`) compiles the frontend, watches `src/main/frontend`, and serves the app.
-- `mvn verify` — run the `*IT` integration tests (Playwright).
+- `mvn test` — run the tests.
 - `mvn -Pprod package` — production build into `target/`.
 
 Java version, dependencies, plugins, and the run goal are declared in `pom.xml` — read them there instead of assuming.
@@ -27,13 +27,13 @@ Already configured in this repo at `https://mcp.webforj.com/mcp`.
 
 ## Testing
 
-Integration tests use Playwright and live in `src/test/java/.../views/` as `<View>IT.java`. `mvn verify` runs them. A test launches Chromium, navigates to `http://localhost:<port>/`, and asserts with `PlaywrightAssertions.assertThat(...)`. Name the class `*IT` so the failsafe plugin runs it, and add one per view.
+Tests use the webforJ TestBed and live in `src/test/java/.../views/` as `<View>Test.java`. `mvn test` runs them, without a browser or a server. A test class carries `@WebforjTest(app = Application.class)`, receives a `WebforjTestbed` parameter, navigates with `context.navigate(View.class)`, interacts through `UserInteraction` and finds components through `ComponentLocator`. Add one test class per view.
 
 ## Do's and Don'ts
 
 - **Do** style with DWC tokens (`--dwc-*`) and set the app color via `--dwc-color-primary-seed` in `src/main/frontend/app.css`.
 - **Do** follow the DWC design system — https://dwc.style/docs/design.md is the full token catalog (colors, typography, spacing, shadows, motion) and component recipes. Every value is a `var(--dwc-*)` token you consume directly.
-- **Do** add a `<View>IT` test for each new view, and run `mvn verify` before finishing.
+- **Do** add a `<View>Test` for each new view, and run `mvn test` before finishing.
 - **Don't** hardcode colors, sizes, or raw CSS values — use `--dwc-*` tokens.
 - **Don't** guess webforJ APIs or token names — resolve them through the MCP server.
 - **Don't** edit anything under `target/` or other generated output.
