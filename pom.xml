@@ -53,4 +53,19 @@
       </snapshots>
     </repository>
   </repositories>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <!-- Maven 3.10 writes maven-metadata-local.xml and _remote.repositories into the
+             staging repository; releases before 0.12.0 bundle them and Central rejects the
+             deployment with "Bundle has content that does NOT have a .pom file". -->
+        <plugin>
+          <groupId>org.sonatype.central</groupId>
+          <artifactId>central-publishing-maven-plugin</artifactId>
+          <version>0.12.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 </project>
